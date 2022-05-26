@@ -1,72 +1,29 @@
-let numberOfDrumButtons = document.querySelectorAll(".Btn").length;
+const keys = "asdfghjkl".split("");
+const elements = keys.map((key) => document.getElementsByClassName(key)[0]);
 
-for (let i = 0; i < numberOfDrumButtons; i++) {
-	document.querySelectorAll(".Btn")[i].addEventListener ("click", function () {
+const audioFiles = [
+  "boom",
+  "hihat",
+  "openhat",
+  "clap",
+  "kick",
+  "ride",
+  "snare",
+  "tom",
+  "tink",
+]
+  .map((sound) => `sounds/${sound}.wav`)
+  .map((filePath) => new Audio(filePath));
 
-		let buttonInnerHTML = this.innerHTML;
+elements.forEach((e, index) =>
+  e.addEventListener("click", () => {
+    audioFiles[index].play();
+  })
+);
 
-		makeSound(buttonInnerHTML);
-	});
-
-}
-
-document.addEventListener("keypress", function(e){
-
-	makeSound(e.key);
+document.addEventListener("keypress", (e) => {
+  const keyIndex = keys.indexOf(e.key);
+  if (keyIndex != -1) {
+    audioFiles[keyIndex].play();
+  }
 });
-
-
-function makeSound(key) {
-
-	switch (key) {
-		case "a":
-		 let boom=new Audio("sounds/boom.wav");
-		 boom.play();
-		 break;
-
-		 case "s":
-		 let hihat=new Audio("sounds/hihat.wav");
-		 hihat.play();
-		 break;
-		 
-		 case "d":
-		 let openhat=new Audio("sounds/openhat.wav");
-		 openhat.play();
-		 break;
-
-		 case "f":
-		 let clap=new Audio("sounds/clap.wav");
-		 clap.play();
-		 break;
-
-		 case "g":
-		 let kick=new Audio("sounds/kick.wav");
-		 kick.play();
-		 break;
-
-		 case "h":
-		 let ride=new Audio("sounds/ride.wav");
-		 ride.play();
-		 break;
-
-		 case "j":
-		 let snare=new Audio("sounds/snare.wav");
-		 snare.play();
-		 break;
-
-		 case "k":
-		 let tom=new Audio("sounds/tom.wav");
-		 tom.play();
-		 break;
-
-		 case "l":
-		 let tink=new Audio("sounds/tink.wav");
-		 tink.play();
-		 break;	
-		
-		 default:console.log(key);
-
-	};
-}
-
-
